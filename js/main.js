@@ -239,3 +239,26 @@ document.querySelector(".cart").addEventListener("click", function (e) {
     }
   }
 });
+
+document.querySelector(".cart").addEventListener("input", function (e) {
+  if (!e.target.dataset.goodid) {
+    return;
+  }
+  let goods = JSON.parse(localStorage.getItem("goods"));
+  for (let i = 0; i < goods.length; i++) {
+    if (goods[i][0] == e.target.dataset.goodid) {
+      goods[i][5] = e.target.value;
+      //   расчет скидки
+      goods[i][6] =
+        goods[i][4] * goods[i][2] -
+        goods[i][4] * goods[i][2] * goods[i][5] * 0.01;
+      localStorage.setItem("goods", JSON.stringify(goods));
+      update_goods();
+
+      //   для возврата фокуса
+      let input = document.querySelector(`[data-goodid="${goods[i][0]}"]`);
+      input.focus();
+      input.selectionStart = input.value.length;
+    }
+  }
+});
