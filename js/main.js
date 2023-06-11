@@ -1,3 +1,41 @@
+// функция сортировки таблицы
+function sortTable(colNum, type, id) {
+  let elem = document.getElementById(id);
+  let tbody = elem.querySelector("tbody");
+  //   содержимое таблица в массив
+  let rowsArray = Array.from(tbody.rows);
+  //   переменная для хранения функции
+  console.log("rowsArray", rowsArray);
+  let compare;
+  switch (type) {
+    case "number":
+      compare = function (rowA, rowB) {
+        return rowA.cells[colNum].innerHTML - rowB.cells[colNum].innerHTML;
+      };
+      break;
+    case "string":
+      compare = function (rowA, rowB) {
+        return rowA.cells[colNum].innerHTML > rowB.cells[colNum].innerHTML
+          ? 1
+          : -1;
+      };
+      break;
+  }
+  rowsArray.sort(compare);
+  tbody.append(...rowsArray);
+}
+// сортировать первую таблицу
+table1.onclick = function (e) {
+  if (e.target.tagName != "TH") return;
+  let th = e.target;
+  sortTable(th.cellIndex, th.dataset.type, "table1");
+};
+// сортировать вторую таблицу
+table2.onclick = function (e) {
+  if (e.target.tagName != "TH") return;
+  let th = e.target;
+  sortTable(th.cellIndex, th.dataset.type, "table2");
+};
 // для работы библиотеки list -  для поиска
 let options = {
   valueNames: ["name", "price"],
