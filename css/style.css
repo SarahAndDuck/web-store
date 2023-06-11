@@ -66,6 +66,7 @@ button.good_delete {
       -ms-flex-pack: center;
           justify-content: center;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .price_title,
